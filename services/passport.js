@@ -10,7 +10,7 @@ passport.use(User.createStrategy())
 passport.use(new Strategy({
     consumerKey: 'Uxxdfkz4xxBv3kTUmLVblmYs8',
     consumerSecret: 'LHtnWZUpMgdDMyWeXgUoQtohKOrvTv5uIQSiA22I7Bw8YjuXZZ',
-    callbackURL: "http://localhost:8888/twitter/callback"
+    callbackURL: "/twitter/callback"
   },
     async function(token, tokenSecret, profile, cb) {
         const email = profile.emails ? profile.emails[0] :  `${profile.username}@twitter.com`
