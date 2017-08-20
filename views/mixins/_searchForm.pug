@@ -1,0 +1,10 @@
+mixin searchForm()
+    form(action=`/search` method="GET")     
+
+        label(for="address") Address
+        input(type="text" name="address" id="address")
+        
+        label(for="find") Find
+        input(type="text" name="find" placeholder="any thing")
+
+        input(type="submit" value="Search")

@@ -1,0 +1,10 @@
+extends layout
+
+include mixins/_searchForm
+
+block content
+    .container
+        h2= title
+        +searchForm()
+    block result
+

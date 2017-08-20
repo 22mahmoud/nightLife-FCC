@@ -1,0 +1,8 @@
+mixin restaurantCard(r = {}) 
+    p #{r.name} #{r.rating}
+    if user 
+        form.save(method="POST" action=`/search/${r.id}/go`)
+            - const saves = user.saves
+            - const isGo = saves.includes(r.id) ? 'Going' : 'Go'
+            input(type="submit" name="go" value=`${isGo}`)
+                

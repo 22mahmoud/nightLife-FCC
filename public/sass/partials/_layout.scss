@@ -1,0 +1,19 @@
+html {
+    font-size: 10px;
+}
+
+.container {
+    //make the container in the center
+    margin-right: auto;
+    margin-left: auto;
+    // give some padding to container's elements
+    padding-right: 15px;
+    padding-left: 15px;
+    // Responsive Width
+    width: 100%;
+    max-width: 100%;
+    // Media queries
+    @media ( min-width: 768px  ) { width: 750px; }
+    @media ( min-width: 992px  ) { width: 970px; }  
+    @media ( min-width: 1200px ) { width: 1170px; }
+}

@@ -1,0 +1,9 @@
+extends search
+
+include mixins/_restaurantCard
+
+
+block result
+    .container
+        each restaurant in restaurants.businesses
+            +restaurantCard(restaurant)

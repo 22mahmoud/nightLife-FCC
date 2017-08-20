@@ -1,0 +1,16 @@
+mixin loginForm()
+    form(action='/login' method='POST')
+        h2 Login
+        
+        a(href="http://localhost:8888/twitter") Login With Twitter
+        br
+        br
+
+        label(for="email") Email
+        input(type="email" name="email")
+        
+        label(for="password") Password
+        input(type="password" name="password")
+
+        input.button(type="submit" value="LogIn")    
+    
