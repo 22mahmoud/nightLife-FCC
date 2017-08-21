@@ -1000,7 +1000,7 @@ function save(e) {
         } else if (_this.go.value === 'Go') {
             _this.go.value = 'Going';
         }
-        (0, _bling.$)('#saved').textContent = res.data.saves.length;
+        (0, _bling.$)('#saved').textContent = res.data.saves.length + ' place/s saved';
     }).catch(console.error);
 }
 

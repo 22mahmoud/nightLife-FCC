@@ -3,7 +3,7 @@ const passport = require('passport')
 exports.login = passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: 'Faild Login!',
-    successRedirect: 'back',
+    successRedirect: '/',
     successFlash: 'You are now logged in!'
 })
 
@@ -15,6 +15,7 @@ exports.loginWithTwitter = passport.authenticate('twitter', {
 
 exports.logout = (req, res) => {
     req.logout()
+    req.flash('success', 'You are now logged out')
     res.redirect('/')
 }
 
@@ -23,6 +24,13 @@ exports.isLoggedIn = (req, res, next) => {
         next()
         return
     }
-    req.flash('error', 'opps You must be logged in to do that')
+    req.flash('danger', 'opps You must be logged in to do that')
     res.redirect('/login')
+}
+
+exports.routesGuards= (req, res, next) => {
+    if(req.isAuthenticated()){
+        res.redirect('/')
+    }
+    next()
 }

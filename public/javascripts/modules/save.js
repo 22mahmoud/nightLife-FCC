@@ -10,7 +10,7 @@ function save(e) {
         } else if ( this.go.value === 'Go' ) {
             this.go.value = 'Going'
         }
-        $('#saved').textContent = res.data.saves.length
+        $('#saved').textContent = res.data.saves.length + ' place/s saved'
     })
     .catch(console.error)
 }

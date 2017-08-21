@@ -1,3 +1,4 @@
+const ProvidePlugin = require('webpack/lib/ProvidePlugin')
 /*
   Okay folks, want to learn a little bit about webpack?
 */
@@ -14,12 +15,17 @@ const autoprefixer = require('autoprefixer');
 
 // This is our JavaScript rule that specifies what to do with .js files
 const javascript = {
-  test: /\.(js)$/, // see how we match anything that ends in `.js`? Cool
+  test: /\.(js)$/, //// see how we match anything that ends in `.js`? Cool
   use: [{
     loader: 'babel-loader',
     options: { presets: ['es2015'] } // this is one way of passing options
   }],
 };
+
+const bootstrap = {
+  test: /bootstrap\/dist\/js\/umd\//,
+  use: 'imports-loader?jQuery=jquery'
+}
 
 /*
   This is our postCSS loader which gets fed into the next loader. I'm setting it up in it's own variable because its a didgeridog
@@ -66,13 +72,31 @@ const config = {
 
   // remember we said webpack sees everthing as modules and how different loaders are responsible for different file types? Here is is where we implement them. Pass it the rules for our JS and our styles
   module: {
-    rules: [javascript, styles]
+    rules: [javascript, styles, bootstrap]
   },
   // finally we pass it an array of our plugins - uncomment if you want to uglify
   // plugins: [uglify]
   plugins: [
     // here is where we tell it to output our css to a separate file
     new ExtractTextPlugin('style.css'),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      Tether: "tether",
+      "window.Tether": "tether",
+      Tooltip: "./node_modules/bootstrap/js/dist/tooltip.js",
+      Alert: "./node_modules/bootstrap/js/dist/alert.js",
+      Button: "./node_modules/bootstrap/js/dist/button.js",
+      Carousel: "./node_modules/bootstrap/js/dist/carousel.js",
+      Collapse: "./node_modules/bootstrap/js/dist/collapse.js",
+      Dropdown: "./node_modules/bootstrap/js/dist/dropdown.js",
+      Modal: "./node_modules/bootstrap/js/dist/modal.js",
+      Popover: "./node_modules/bootstrap/js/dist/popover.js",
+      Scrollspy: "./node_modules/bootstrap/js/dist/scrollspy.js",
+      Tab: "./node_modules/bootstrap/js/dist/tab.js",
+      Util: "./node_modules/bootstrap/js/dist/util.js",
+  }),
   ]
 };
 // webpack is cranky about some packages using a soon to be deprecated API. shhhhhhh

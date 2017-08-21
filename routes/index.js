@@ -11,7 +11,7 @@ router.get('/', restaurantsController.search)
 
 router.get('/search', restaurantsController.searchResult)
 // Login & Logout
-router.get('/login', userController.loginForm)
+router.get('/login', authController.routesGuards ,userController.loginForm)
 router.post('/login', authController.login)
 // Login with Twitter
 router.get('/twitter', passport.authenticate('twitter'))
@@ -20,7 +20,7 @@ router.get('/twitter/callback', authController.loginWithTwitter, (req, res) => {
 })
 router.get('/logout', authController.logout)
 // Register
-router.get('/register', userController.registerForm)
+router.get('/register', authController.routesGuards, userController.registerForm)
 router.post('/register', 
     // 1. validate the registeration data
     userController.validateRegister,
@@ -31,5 +31,5 @@ router.post('/register',
 )
 
 router.post('/search/:id/go', restaurantsController.goRestaurant)
-router.get('/going', restaurantsController.getSaved)
+router.get('/going', authController.isLoggedIn ,restaurantsController.getSaved)
 module.exports = router

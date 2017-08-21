@@ -1,10 +1,7 @@
 mixin searchForm()
-    form(action=`/search` method="GET")     
-
-        label(for="address") Address
-        input(type="text" name="address" id="address")
-        
-        label(for="find") Find
-        input(type="text" name="find" placeholder="any thing")
-
-        input(type="submit" value="Search")
+    form.mt-5(action=`/search` method="GET")
+        .form-row     
+            .form-group.col-md-8
+                input.form-control(type="text" name="address" id="address" placeholder="Enter Address")
+            .form-group.col-md-2
+                input.btn.btn-primary(type="submit" value="Search")

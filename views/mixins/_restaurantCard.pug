@@ -1,8 +1,24 @@
 mixin restaurantCard(r = {}) 
-    p #{r.name} #{r.rating}
-    if user 
-        form.save(method="POST" action=`/search/${r.id}/go`)
-            - const saves = user.saves
-            - const isGo = saves.includes(r.id) ? 'Going' : 'Go'
-            input(type="submit" name="go" value=`${isGo}`)
-                
+    .card.mb-4
+        .card-header 
+            a(href=`${r.url}`) #{r.name}
+            if r.usersNo === 0 
+                h6= `nobody will go there`
+            else
+                h6= `${r.usersNo} user/s will go to this place`
+        .card-body
+            .row
+                .col-8.d-flex.flex-column
+                    h5 price: #{r.price}
+                    h5 Location: #{r.location.address1}    
+                    if user 
+                        form.save(method="POST" action=`/search/${r.id}/go`)
+                            - const saves = user.saves
+                            - const isGo = saves.includes(r.id) ? 'Going' : 'Go'
+                            input.btn.btn-primary(type="submit" name="go" value=`${isGo}`)
+                .col-2.ml-auto
+                    if !r.is_close
+                        h6.btn.btn-outline-success Open now
+                    else 
+                        h6.btn.btn-outline-danger Closed
+                    h4.card-title.mt-2.ml-3 #{r.rating} / 5

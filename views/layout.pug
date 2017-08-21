@@ -6,26 +6,42 @@ html
     link(rel='stylesheet', href='/dist/style.css')
   body
     block Header
-      if user
-        a(href="/going")
-          button(type="text" name="saved" id="saved") #{user.saves.length}
-    block loginTwitter
-      if user
-        p= user.name
-      else
-        form(action="/twitter")
-          button Login With Twitter
-    block messages
-      if locals.flashes
-        .inner
-          .flash-messages
-            - const categories = Object.keys(locals.flashes)
-            each category in categories
-              each message in flashes[category]
-                .flash(class=`flash--${category}`)
-                  p.flash__text!= message
-                  button.flash__remove(onClick="this.parentElement.remove()") &times;
-    block content
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        a.navbar-brand(href="/") Nightlife Coordination
+        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ml-auto.px-3
+            if !user
+              li.nav-item.mx-4
+                a(href='/login')
+                  button.btn.btn-primary Login
+              li.nav-item
+                a(href='/register')
+                  button.btn.btn-primary signup
+                  
+            else
+              li.nav-item.mr-2
+                a(href='/going')
+                  button.btn.btn-primary(type="text" name="saved" id="saved")  #{user.saves.length} place/s saved
+              li.nav-item
+                button.btn.btn-light.mx-4 #{user.name} 
+              li.nav-item
+                a(href='/logout')
+                  button.btn.btn-primary Logout 
+    .container
+      block messages
+        if locals.flashes
+          .inner
+            .flash-messages
+              - const categories = Object.keys(locals.flashes)
+              each category in categories
+                each message in flashes[category]
+                  .row.d-flex.justify-content-center.align-content-center.mt-4
+                    .flash(class=`alert alert-${category}`) #{message}
+                      button.btn.btn-outline-dark.ml-5(onClick="this.parentElement.remove()") &times;
+    .container
+      block content
 
     block scripts
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)

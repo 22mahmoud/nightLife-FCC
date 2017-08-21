@@ -1,16 +1,17 @@
 mixin loginForm()
-    form(action='/login' method='POST')
-        h2 Login
-        
-        a(href="http://localhost:8888/twitter") Login With Twitter
-        br
-        br
+    .d-flex.justify-content-center
+        form(action='/login' method='POST')
+            h2.mb-5 Login    
+            .form-group
+                a.btn.btn-primary.btn-block(href="/twitter") Login With Twitter
+            hr
+            .form-group
+                label(for="email") Email
+                input.form-control(type="email" name="email" is-valid placeholder="Enter you'r Email")
+            .form-group
+                label(for="password") Password
+                input.form-control(type="password" name="password" placeholder="Enter you'r Password")
 
-        label(for="email") Email
-        input(type="email" name="email")
+            .form-group
+                button.btn.btn-dark.btn-block(type="submit") Login
         
-        label(for="password") Password
-        input(type="password" name="password")
-
-        input.button(type="submit" value="LogIn")    
-    

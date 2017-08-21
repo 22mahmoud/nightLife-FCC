@@ -13,7 +13,6 @@ exports.searchResult = async (req, res) => {
   const { address, find } = req.query
 
   const searchRequest = {
-    term: find,
     location: address
   }
   try {
@@ -21,6 +20,12 @@ exports.searchResult = async (req, res) => {
     const client = await yelp.client(response.jsonBody.access_token)
     const data = await client.search(searchRequest)
     const restaurants = data.jsonBody
+    let finalrestaurants
+   for(let i = 0; i < restaurants.businesses.length; i++) {
+      const users = await User.find({ saves: { $in: [restaurants.businesses[i].id] } })
+      const usersNo = users.length
+      finalrestaurants = Object.assign(restaurants.businesses[i], {usersNo})
+    }
     //res.send(restaurants)
     res.render('restaurants', { title: 'Search Results', restaurants })
   } catch(err) {
